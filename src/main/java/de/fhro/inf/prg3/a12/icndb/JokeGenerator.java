@@ -19,6 +19,8 @@ public final class JokeGenerator {
      */
     public Stream<ResponseWrapper<JokeDto>> randomJokesStream() {
         /* TODO create new Stream of random jokes */
+
+
         throw new NotImplementedException("Method `randomJokeStream()` is not implemented");
     }
 

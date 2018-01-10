@@ -4,6 +4,7 @@ import de.fhro.inf.prg3.a12.icndb.JokeGenerator;
 import de.fhro.inf.prg3.a12.model.JokeDto;
 import de.fhro.inf.prg3.a12.model.ResponseWrapper;
 
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -36,6 +37,22 @@ public abstract class App {
              * use `skip` and `limit` to retrieve the required elements
              * use `map` to unwrap the ResponseWrapper value
              * and print the jokes to the STDOUT */
+
+            jokesSource
+                    .filter(Objects::nonNull)
+
+                    .skip(skipCount)
+
+                    .limit(jokeCount)
+
+                    //.map(ResponseWrapper::getValue)
+                    .map(wrapper ->{
+                        return wrapper.getValue();
+                    })
+                    .forEach(s -> System.out.println(s.getJoke()));
+
+
+
 
             System.out.println("If you want to quit press [Q] otherwise press [C] to continue.");
             String input = inputScanner.next();

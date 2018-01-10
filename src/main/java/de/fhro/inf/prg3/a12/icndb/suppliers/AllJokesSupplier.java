@@ -6,12 +6,15 @@ import de.fhro.inf.prg3.a12.model.JokeDto;
 import de.fhro.inf.prg3.a12.model.ResponseWrapper;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.concurrent.ExecutionException;
+import java.util.function.Supplier;
+
 /**
  * Supplier implementation to retrieve all jokes of the ICNDB in a linear way
  * @author Peter Kurfer
  */
 
-public final class AllJokesSupplier {
+public final class AllJokesSupplier implements Supplier<ResponseWrapper<JokeDto>> {
 
     /* ICNDB API proxy to retrieve jokes */
     private final ICNDBApi icndbApi;
@@ -28,7 +31,10 @@ public final class AllJokesSupplier {
          * you have to catch an exception and continue if no joke was retrieved to an ID
          * if you retrieved all jokes (count how many jokes you successfully fetched from the API)
          * reset the counters and continue at the beginning */
-        throw new NotImplementedException("Method `get()` is not implemented");
+        try {
+            return icndbApi.getRandomJoke().get();
+        } catch (InterruptedException | ExecutionException e) {
+            return null;  // return null if error occured
+        }
     }
-
 }
